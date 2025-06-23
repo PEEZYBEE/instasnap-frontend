@@ -26,8 +26,15 @@ function Profile() {
         </p>
       </div>
 
-      <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-2xl space-y-6">
-        <div className="text-white/90 space-y-2">
+      <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-2xl space-y-6 text-center">
+        <img
+          src={`http://127.0.0.1:5000${user.profile_picture}`}
+          alt="Profile"
+          className="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white shadow-lg"
+        />
+        <h2 className="text-2xl font-bold text-white mt-4">{user.username}</h2>
+
+        <div className="text-white/90 space-y-2 mt-4">
           <p>
             <span className="font-semibold text-white">Email:</span> {user.email}
           </p>

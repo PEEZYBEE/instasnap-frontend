@@ -16,6 +16,7 @@ export function AuthProvider({ children }) {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("Fetched user:", data);
         setUser(data);
       } else {
         console.error("Failed to fetch user");
