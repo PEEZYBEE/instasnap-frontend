@@ -38,7 +38,7 @@ function Home() {
           </>
         ) : (
           <>
-            <h1 className="text-5xl font-extrabold mb-4 drop-shadow-lg">
+            <h1 className="text-5xl font-extrabold mb-4 drop-shadow-lg text-red-500">
               Welcome to InstaSnap 
             </h1>
             <p className="text-lg mb-6">

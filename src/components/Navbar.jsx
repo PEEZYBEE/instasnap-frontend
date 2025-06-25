@@ -21,7 +21,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/30 backdrop-blur-md border-b border-white/20 shadow-md py-4 px-6">
+    <nav className="sticky top-0 z-50 bg-red-400/30 backdrop-blur-md border-b border-white/20 shadow-md py-4 px-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
         <Link to="/" className="flex items-center space-x-2">
