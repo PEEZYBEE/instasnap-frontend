@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {api_url} from "../config.json";
 
 function useAuth() {
   const [user, setUser] = useState(null);
@@ -10,7 +11,7 @@ function useAuth() {
       return;
     }
 
-    fetch("http://127.0.0.1:5000/users/current_user", {
+    fetch(`${api_url}/users/current_user`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

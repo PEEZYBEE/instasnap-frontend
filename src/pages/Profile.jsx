@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import EditProfileModal from "../components/EditProfileModal";
 import { Link } from "react-router-dom";
+import {api_url} from "../config.json";
 
 function Profile() {
   const { user } = useAuthContext();
@@ -28,7 +29,7 @@ function Profile() {
 
       <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-2xl space-y-6 text-center">
         <img
-          src={`http://127.0.0.1:5000${user.profile_picture}`}
+          src={`${api_url}${user.profile_picture}`}
           alt="Profile"
           className="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white shadow-lg"
         />

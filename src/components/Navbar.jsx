@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Menu, X } from "lucide-react";
+import {api_url} from "../config.json";
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -15,7 +16,7 @@ function Navbar() {
 
   const getProfilePicture = () => {
     return user?.profile_picture
-      ? `http://127.0.0.1:5000${user.profile_picture}`
+      ? `${api_url}${user.profile_picture}`
       : "/default-avatar.png";
   };
 

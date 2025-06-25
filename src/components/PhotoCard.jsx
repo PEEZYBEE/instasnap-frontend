@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
+import {api_url} from "../config.json";
 
 function PhotoCard({ photo }) {
   const { user } = useAuthContext();
@@ -20,7 +21,7 @@ function PhotoCard({ photo }) {
   const randomColor = bgColors[photo.id % bgColors.length];
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/comments/photo/${photo.id}`)
+    fetch(`${api_url}/comments/photo/${photo.id}`)
       .then((res) => res.json())
       .then(setComments)
       .catch((err) => console.error("Failed to fetch comments", err));
@@ -28,7 +29,7 @@ function PhotoCard({ photo }) {
 
   const handleLike = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/likes/", {
+      const res = await fetch(`${api_url}/likes/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +55,7 @@ function PhotoCard({ photo }) {
     if (!commentText.trim()) return;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/comments/", {
+      const res = await fetch(`${api_url}/comments/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +84,7 @@ function PhotoCard({ photo }) {
     if (!reason) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:5000/flags/photo/${photo.id}`, {
+      const res = await fetch(`${api_url}/flags/photo/${photo.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +108,7 @@ function PhotoCard({ photo }) {
     if (!reason) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:5000/flags/comment/${commentId}`, {
+      const res = await fetch(`${api_url}/flags/comment/${commentId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +132,7 @@ function PhotoCard({ photo }) {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:5000/photos/${photo.id}`, {
+      const res = await fetch(`${api_url}/photos/${photo.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
@@ -155,7 +156,7 @@ function PhotoCard({ photo }) {
       className={`rounded-lg overflow-hidden shadow-md ${randomColor} text-black transition hover:scale-105 duration-300`}
     >
       <img
-        src={`http://127.0.0.1:5000${photo.image_url}`}
+        src={`${api_url}${photo.image_url}`}
         alt={photo.caption}
         className="w-full h-48 object-cover"
       />
@@ -206,7 +207,7 @@ function PhotoCard({ photo }) {
             <div key={c.id} className="flex items-start gap-2 justify-between">
               <div className="flex items-start gap-2">
                 <img
-                  src={`http://127.0.0.1:5000${c.profile_picture}`}
+                  src={`${api_url}${c.profile_picture}`}
                   alt={c.username}
                   className="w-6 h-6 rounded-full object-cover"
                 />

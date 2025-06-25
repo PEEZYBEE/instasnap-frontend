@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {api_url} from "../config.json";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -13,7 +14,7 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://127.0.0.1:5000/users/login", {
+    fetch(`${api_url}/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

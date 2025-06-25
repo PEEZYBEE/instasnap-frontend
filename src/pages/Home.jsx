@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import PhotoCard from "../components/PhotoCard";
+import {api_url} from "../config.json";
 
 function Home() {
   const user = useAuth();
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/photos")
+    fetch(`${api_url}/photos`)
       .then((r) => r.json())
       .then((data) => setPhotos(data))
       .catch((err) => console.error("Failed to fetch photos:", err));

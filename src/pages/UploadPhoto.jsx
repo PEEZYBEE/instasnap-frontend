@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {api_url} from "../config.json";
 
 function UploadPhoto() {
   const [photoFile, setPhotoFile] = useState(null);
@@ -20,7 +21,7 @@ function UploadPhoto() {
     formData.append("photo", photoFile);
     formData.append("caption", caption);
 
-    fetch("http://127.0.0.1:5000/photos/", {
+    fetch(`${api_url}/photos/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

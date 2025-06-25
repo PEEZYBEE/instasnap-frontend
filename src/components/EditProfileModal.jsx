@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import {api_url} from "../config.json"; 
 
 function EditProfileModal({ onClose }) {
   const { user, setUser } = useAuthContext();
@@ -32,7 +33,7 @@ function EditProfileModal({ onClose }) {
     }
 
     try {
-      const res = await fetch(`http://127.0.0.1:5000/users/${user.id}`, {
+      const res = await fetch(`${api_url}/users/${user.id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {api_url} from "../config.json";
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -19,7 +20,7 @@ function AdminDashboard() {
   }
 
   function fetchDataFrom(endpoint, setter) {
-    fetch(`http://127.0.0.1:5000${endpoint}`, {
+    fetch(`${api_url}${endpoint}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => {
@@ -36,14 +37,14 @@ function AdminDashboard() {
   }
 
   function toggleBlockUser(id) {
-    fetch(`http://127.0.0.1:5000/admin/users/${id}/block`, {
+    fetch(`${api_url}/admin/users/${id}/block`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${token}` },
     }).then(() => fetchDataFrom("/admin/users", setUsers));
   }
 
   function deletePhoto(id) {
-    fetch(`http://127.0.0.1:5000/admin/photos/${id}`, {
+    fetch(`${api_url}/admin/photos/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     }).then(() => {
@@ -53,7 +54,7 @@ function AdminDashboard() {
   }
 
   function deleteComment(id) {
-    fetch(`http://127.0.0.1:5000/admin/comments/${id}`, {
+    fetch(`${api_url}/admin/comments/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     }).then(() => fetchDataFrom("/admin/flagged/comments", setFlaggedComments));
@@ -89,7 +90,7 @@ function AdminDashboard() {
             <p>Photo #{photo.id} by @{photo.username}</p>
             <p>{photo.caption}</p>
             <img
-              src={`http://127.0.0.1:5000${photo.image_url}`}
+              src={`${api_url}${photo.image_url}`}
               alt="Uploaded"
               className="w-32 h-32 object-cover"
             />
@@ -129,7 +130,7 @@ function AdminDashboard() {
             <p>Photo #{photo.id} by @{photo.username}</p>
             <p className="text-sm text-red-500">🚩 Reason: {photo.reason}</p>
             <img
-              src={`http://127.0.0.1:5000${photo.image_url}`}
+              src={`${api_url}${photo.image_url}`}
               alt="Flagged"
               className="w-32 h-32 object-cover my-2"
             />
