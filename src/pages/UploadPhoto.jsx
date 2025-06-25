@@ -37,8 +37,8 @@ function UploadPhoto() {
         return res.json();
       })
       .then((data) => {
-        toast.success("Photo uploaded successfully! 🎉");
-        navigate("/"); // 🔁 Redirect to homepage or feed
+        toast.success("Photo uploaded successfully! ");
+        navigate("/"); 
       })
       .catch((err) => {
         toast.error(err.message || "Something went wrong");

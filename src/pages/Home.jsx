@@ -17,7 +17,7 @@ function Home() {
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-start p-6 text-white"
-      style={{ backgroundImage: "url('/login-bg.jpg')" }} // same as EditProfileModal
+      style={{ backgroundImage: "url('/login-bg.jpg')" }} 
     >
       <div className="text-center mb-12 animate-fade-in-down">
         {user ? (
@@ -38,7 +38,7 @@ function Home() {
         ) : (
           <>
             <h1 className="text-5xl font-extrabold mb-4 drop-shadow-lg">
-              Welcome to InstaSnap 📸
+              Welcome to InstaSnap 
             </h1>
             <p className="text-lg mb-6">
               Capture moments. Share stories. Explore the world.

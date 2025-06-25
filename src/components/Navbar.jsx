@@ -4,16 +4,15 @@ import { AuthContext } from "../context/AuthContext";
 import { Menu, X } from "lucide-react";
 
 function Navbar() {
-  const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  // Format the profile picture URL safely
   const getProfilePicture = () => {
     return user?.profile_picture
       ? `http://127.0.0.1:5000${user.profile_picture}`
@@ -23,13 +22,19 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white/30 backdrop-blur-md border-b border-white/20 shadow-md py-4 px-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo */}
+        
         <Link to="/" className="flex items-center space-x-2">
-          <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" />
-          <span className="text-xl font-bold text-purple-800 hidden sm:inline">InstaSnap</span>
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-10 w-10 object-contain rounded-full"
+          />
+          <span className="text-xl font-bold text-purple-800 hidden sm:inline">
+            InstaSnap
+          </span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-6 text-gray-800 text-sm font-medium">
           <Link to="/" className="hover:text-purple-700 transition">Home</Link>
 
@@ -50,7 +55,6 @@ function Navbar() {
               >
                 Logout
               </button>
-              {/* User avatar */}
               <img
                 src={getProfilePicture()}
                 onError={(e) => {
@@ -64,7 +68,7 @@ function Navbar() {
           )}
         </div>
 
-        {/* Mobile menu toggle */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -75,9 +79,9 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="md:hidden mt-4 space-y-3 bg-white/80 rounded-xl p-4 text-gray-800 text-sm font-medium shadow-lg">
+        <div className="md:hidden mt-4 space-y-3 bg-white/90 rounded-xl p-4 text-gray-800 text-sm font-medium shadow-lg">
           <Link to="/" onClick={() => setMenuOpen(false)} className="block hover:text-purple-700">Home</Link>
 
           {!user ? (
