@@ -25,7 +25,7 @@ function useAuth() {
           username: data.username,
           email: data.email,
           bio: data.bio,
-          is_admin: data.is_admin,     // <- include for admin routes
+          is_admin: data.is_admin,    
           created_at: data.created_at,
         });
       })

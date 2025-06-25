@@ -10,6 +10,8 @@ import Profile from './pages/Profile';
 import UploadPhoto from "./pages/UploadPhoto";
 import AdminDashboard from "./pages/AdminDashboard";
 
+
+
 function App() {
   const { user,loading } = useContext(AuthContext); 
    
@@ -23,19 +25,18 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/upload" element={<UploadPhoto />} />
+        
         <Route
           path="/admin"
           element={
-            loading ? (
-              <div className="text-center mt-8 text-gray-600">Loading user info...</div>
-            ) : user && user.is_admin ? (
+             user && user.is_admin ? (
               <AdminDashboard />
             ) : (
               <Navigate to="/" replace />
             )
      }
    />
-
+       
       </Routes>
     </div>
   );

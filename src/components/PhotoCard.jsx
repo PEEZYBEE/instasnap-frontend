@@ -78,6 +78,78 @@ function PhotoCard({ photo }) {
     }
   };
 
+  const flagPhoto = async () => {
+    const reason = prompt("Why are you flagging this photo?");
+    if (!reason) return;
+
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/flags/photo/${photo.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ reason }),
+      });
+
+      if (res.ok) {
+        alert("Photo flagged for review.");
+      } else {
+        console.warn("Flagging photo failed");
+      }
+    } catch (err) {
+      console.error("Error flagging photo:", err);
+    }
+  };
+
+  const flagComment = async (commentId) => {
+    const reason = prompt("Why are you flagging this comment?");
+    if (!reason) return;
+
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/flags/comment/${commentId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ reason }),
+      });
+
+      if (res.ok) {
+        alert("Comment flagged.");
+      } else {
+        console.warn("Flagging comment failed");
+      }
+    } catch (err) {
+      console.error("Error flagging comment:", err);
+    }
+  };
+
+  const handleDelete = async () => {
+    const confirmDelete = confirm("Are you sure you want to delete this photo?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/photos/${photo.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (res.ok) {
+        alert("Photo deleted.");
+        window.location.reload(); 
+      } else {
+        const error = await res.json();
+        console.warn("Delete failed:", error.error);
+      }
+    } catch (err) {
+      console.error("Error deleting photo:", err);
+    }
+  };
+
   return (
     <div
       className={`rounded-lg overflow-hidden shadow-md ${randomColor} text-black transition hover:scale-105 duration-300`}
@@ -89,7 +161,26 @@ function PhotoCard({ photo }) {
       />
 
       <div className="p-4 bg-white/30 backdrop-blur-md rounded-b-lg">
-        <p className="font-semibold mb-2 text-gray-800">{photo.caption}</p>
+        <div className="flex justify-between items-center">
+          <p className="font-semibold mb-2 text-gray-800">{photo.caption}</p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={flagPhoto}
+              className="text-xs text-red-500 hover:text-red-700"
+            >
+               Flag
+            </button>
+            {user && photo.user && user.id === photo.user.id && (
+              <button
+                onClick={handleDelete}
+                className="text-xs text-red-600 hover:text-red-800"
+            >
+                Delete
+            </button>
+         )}
+
+          </div>
+        </div>
 
         <div className="flex items-center gap-3 mb-4">
           <button
@@ -112,15 +203,23 @@ function PhotoCard({ photo }) {
 
         <div className="space-y-1 text-sm text-gray-800 max-h-32 overflow-y-auto">
           {comments.map((c) => (
-            <div key={c.id} className="flex items-start gap-2">
-              <img
-                src={c.profile_picture}
-                alt={c.username}
-                className="w-6 h-6 rounded-full object-cover"
-              />
-              <p>
-                <strong>@{c.username}:</strong> {c.content}
-              </p>
+            <div key={c.id} className="flex items-start gap-2 justify-between">
+              <div className="flex items-start gap-2">
+                <img
+                  src={`http://127.0.0.1:5000${c.profile_picture}`}
+                  alt={c.username}
+                  className="w-6 h-6 rounded-full object-cover"
+                />
+                <p>
+                  <strong>@{c.username}:</strong> {c.content}
+                </p>
+              </div>
+              <button
+                onClick={() => flagComment(c.id)}
+                className="text-xs text-red-400 hover:text-red-600 ml-2"
+              >
+                flag
+              </button>
             </div>
           ))}
         </div>

@@ -29,7 +29,7 @@ function Navbar() {
             alt="Logo"
             className="h-10 w-10 object-contain rounded-full"
           />
-          <span className="text-xl font-bold text-purple-800 hidden sm:inline">
+          <span className="text-xl font-bold text-purple-800 hidden sm:inline ">
             InstaSnap
           </span>
         </Link>

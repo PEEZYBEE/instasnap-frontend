@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,13 +16,21 @@ function Login() {
     fetch("http://127.0.0.1:5000/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     })
-      .then((r) => {
-        if (!r.ok) throw new Error("Invalid credentials");
-        return r.json();
-      })
-      .then((data) => {
+      .then(async (res) => {
+        const data = await res.json();
+
+        if (!res.ok) {
+          if (res.status === 403) {
+            throw new Error("Your account has been blocked. Please contact support.");
+          } else if (res.status === 401) {
+            throw new Error("Invalid email or password.");
+          } else {
+            throw new Error(data.error || "Something went wrong. Please try again.");
+          }
+        }
+
         localStorage.setItem("token", data.access_token);
         toast.success("Login successful!");
         navigate("/profile");
@@ -36,8 +43,8 @@ function Login() {
   return (
     <div className="min-h-screen bg-[url('/bg.jpg')] bg-cover bg-center flex items-center justify-center px-4">
       <div className="backdrop-blur-md bg-white/10 border border-white/30 rounded-2xl shadow-lg p-12 max-w-xl w-full text-white">
-
         <h2 className="text-3xl font-bold mb-6 text-center">Login to InstaSnap</h2>
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="text-sm block mb-1">Email</label>
